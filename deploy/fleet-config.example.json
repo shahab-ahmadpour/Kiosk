@@ -1,0 +1,11 @@
+{
+  "showroomTitle": "شوروم خودرو",
+  "allowedPackages": ["com.android.chrome"],
+  "chromeStartUrl": "https://example.com/cars",
+  "chromeUrlAllowlist": ["example.com"],
+  "autoLaunchPackage": "com.android.chrome",
+  "samsungHardening": true,
+  "chromeSignInAllowed": false,
+  "brightness": 180,
+  "kioskEnabled": true
+}

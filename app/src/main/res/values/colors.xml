@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="bg">#121510</color>
+    <color name="card">#1E2618</color>
+    <color name="gold">#D6B25E</color>
+    <color name="onGold">#1A1408</color>
+    <color name="text">#F4F1E8</color>
+    <color name="muted">#B7B2A6</color>
+    <color name="danger">#C4524A</color>
+</resources>

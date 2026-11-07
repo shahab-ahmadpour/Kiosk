@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.ShowroomKiosk" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/gold</item>
+        <item name="colorOnPrimary">@color/onGold</item>
+        <item name="colorSurface">@color/card</item>
+        <item name="colorOnSurface">@color/text</item>
+        <item name="android:statusBarColor">@color/bg</item>
+        <item name="android:navigationBarColor">@color/bg</item>
+        <item name="android:windowBackground">@color/bg</item>
+        <item name="android:textColor">@color/text</item>
+        <item name="materialAlertDialogTheme">@style/ThemeOverlay.Showroom.Dialog</item>
+    </style>
+
+    <style name="ThemeOverlay.Showroom.Dialog" parent="ThemeOverlay.Material3.MaterialAlertDialog">
+        <item name="colorSurface">@color/card</item>
+        <item name="colorOnSurface">@color/text</item>
+    </style>
+
+    <style name="Theme.ShowroomKiosk.Provisioning" parent="@android:style/Theme.Translucent.NoTitleBar" />
+</resources>
