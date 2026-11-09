@@ -47,6 +47,9 @@ class PolicyApplier(private val context: Context) {
             step("screen-timeout") {
                 dpm.setSystemSetting(admin, Settings.System.SCREEN_OFF_TIMEOUT, "300000")
             }
+            step("auto-rotate") {
+                dpm.setSystemSetting(admin, Settings.System.ACCELEROMETER_ROTATION, "1")
+            }
         }
         if (store.brightness in 10..255 && Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             step("brightness") {

@@ -33,7 +33,6 @@
             android:exported="true"
             android:launchMode="singleTask"
             android:lockTaskMode="if_whitelisted"
-            android:screenOrientation="sensorLandscape"
             android:stateNotNeeded="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -49,7 +48,6 @@
             android:exported="false"
             android:launchMode="singleTop"
             android:lockTaskMode="if_whitelisted"
-            android:screenOrientation="sensorLandscape"
             android:windowSoftInputMode="adjustResize" />
 
         <activity
