@@ -14,6 +14,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import android.view.Gravity
 import android.view.MotionEvent
 import android.view.WindowManager
 import com.google.android.material.button.MaterialButton
@@ -28,6 +29,7 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var resumeButton: MaterialButton
     private lateinit var appList: LinearLayout
     private lateinit var versionView: TextView
+    private lateinit var status: HomeStatus
     private var taps = 0
     private var lastTap = 0L
     private var gateOpen = false
@@ -81,17 +83,43 @@ class HomeActivity : AppCompatActivity() {
             setBackgroundColor(android.graphics.Color.BLACK)
             importantForAccessibility = View.IMPORTANT_FOR_ACCESSIBILITY_NO
         }
+        status = HomeStatus(this)
         val root = FrameLayout(this).apply {
             setBackgroundColor(android.graphics.Color.BLACK)
             addView(wallpaper, FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT))
             addView(scroll, FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT))
+            addView(
+                status.view,
+                FrameLayout.LayoutParams(
+                    FrameLayout.LayoutParams.WRAP_CONTENT,
+                    FrameLayout.LayoutParams.WRAP_CONTENT,
+                ).apply { gravity = Gravity.TOP or Gravity.RIGHT },
+            )
         }
         setContentView(root)
+        ViewCompat.setOnApplyWindowInsetsListener(status.view) { view, insets ->
+            val bars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            val params = view.layoutParams as FrameLayout.LayoutParams
+            params.topMargin = bars.top + dp(12)
+            params.rightMargin = bars.right + dp(20)
+            view.layoutParams = params
+            insets
+        }
         ViewCompat.setOnApplyWindowInsetsListener(scroll) { view, insets ->
             val bars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             view.setPadding(bars.left, bars.top, bars.right, bars.bottom)
             insets
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        status.start()
+    }
+
+    override fun onStop() {
+        status.stop()
+        super.onStop()
     }
 
     override fun onResume() {

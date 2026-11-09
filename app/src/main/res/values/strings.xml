@@ -7,6 +7,12 @@
     <string name="home_subtitle_many">Choose an app</string>
     <string name="home_subtitle_one">Tap to open</string>
     <string name="home_subtitle_none">No app has been selected yet</string>
+    <string name="status_wifi">Wi-Fi</string>
+    <string name="status_charging">Charging</string>
+    <string name="status_battery_icon">Battery</string>
+    <string name="status_battery_percent">%1$d%%</string>
+    <string name="status_battery_level">Battery %1$d percent</string>
+    <string name="status_battery_charging">Battery %1$d percent, charging</string>
     <string name="banner_not_owner">This tablet is not locked by Android yet. Skip every Google and Samsung account, install the release APK, then set this app as device owner. Until then a visitor can leave the kiosk.</string>
     <string name="banner_not_locked">The lock is off. Set a PIN, choose Chrome and up to two other apps, then turn the kiosk on.</string>
     <string name="banner_maintenance">Maintenance is open. The tablet locks itself again on the deadline. Do not leave it with a visitor.</string>

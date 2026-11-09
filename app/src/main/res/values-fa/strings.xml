@@ -7,6 +7,12 @@
     <string name="home_subtitle_many">یک برنامه را انتخاب کنید</string>
     <string name="home_subtitle_one">Tap to open</string>
     <string name="home_subtitle_none">هنوز برنامه‌ای انتخاب نشده است</string>
+    <string name="status_wifi">وای‌فای</string>
+    <string name="status_charging">در حال شارژ</string>
+    <string name="status_battery_icon">باتری</string>
+    <string name="status_battery_percent">%1$d%%</string>
+    <string name="status_battery_level">باتری %1$d درصد</string>
+    <string name="status_battery_charging">باتری %1$d درصد، در حال شارژ</string>
     <string name="banner_not_owner">قفل سیستمی اندروید هنوز فعال نیست. هیچ حساب گوگل یا سامسونگی نسازید، APK نسخهٔ release را نصب کنید و این برنامه را مالک دستگاه کنید. تا آن لحظه مشتری می‌تواند از کیوسک خارج شود.</string>
     <string name="banner_not_locked">قفل خاموش است. رمز مسئول را بگذارید، کروم و حداکثر دو برنامهٔ دیگر را انتخاب کنید، بعد کیوسک را روشن کنید.</string>
     <string name="banner_maintenance">حالت تعمیر باز است. در زمان تعیین‌شده کیوسک دوباره قفل می‌شود. تبلت را پیش مشتری تنها نگذارید.</string>
