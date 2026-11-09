@@ -1,20 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Theme.ShowroomKiosk" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Theme.ShowroomKiosk" parent="Theme.Material3.Dark.NoActionBar">
         <item name="colorPrimary">@color/gold</item>
         <item name="colorOnPrimary">@color/onGold</item>
-        <item name="colorSurface">@color/card</item>
+        <item name="colorSecondary">@color/gold</item>
+        <item name="colorOnSecondary">@color/onGold</item>
+        <item name="colorSurface">@color/bg</item>
         <item name="colorOnSurface">@color/text</item>
+        <item name="colorOnSurfaceVariant">@color/muted</item>
+        <item name="colorSurfaceContainer">@color/card</item>
+        <item name="colorSurfaceContainerLow">@color/bg</item>
+        <item name="colorSurfaceContainerLowest">@color/bg</item>
+        <item name="colorSurfaceContainerHigh">@color/card</item>
+        <item name="colorSurfaceContainerHighest">@color/card</item>
+        <item name="android:colorBackground">@color/bg</item>
+        <item name="android:textColor">@color/text</item>
+        <item name="android:textColorPrimary">@color/text</item>
+        <item name="android:textColorSecondary">@color/muted</item>
+        <item name="android:editTextColor">@color/text</item>
+        <item name="android:textColorHint">@color/muted</item>
         <item name="android:statusBarColor">@color/bg</item>
         <item name="android:navigationBarColor">@color/bg</item>
         <item name="android:windowBackground">@color/bg</item>
-        <item name="android:textColor">@color/text</item>
+        <item name="alertDialogTheme">@style/ThemeOverlay.Showroom.Dialog</item>
         <item name="materialAlertDialogTheme">@style/ThemeOverlay.Showroom.Dialog</item>
     </style>
 
     <style name="ThemeOverlay.Showroom.Dialog" parent="ThemeOverlay.Material3.MaterialAlertDialog">
+        <item name="colorPrimary">@color/gold</item>
+        <item name="colorOnPrimary">@color/onGold</item>
         <item name="colorSurface">@color/card</item>
         <item name="colorOnSurface">@color/text</item>
+        <item name="colorOnSurfaceVariant">@color/muted</item>
+        <item name="colorSurfaceContainerHigh">@color/card</item>
+        <item name="android:colorBackground">@color/card</item>
+        <item name="android:textColor">@color/text</item>
+        <item name="android:textColorPrimary">@color/text</item>
+        <item name="android:windowBackground">@color/card</item>
     </style>
 
     <style name="Theme.ShowroomKiosk.Provisioning" parent="@android:style/Theme.Translucent.NoTitleBar" />

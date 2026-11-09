@@ -97,6 +97,7 @@ fun Context.field(
             setStroke(dp(1), getColor(R.color.gold))
             cornerRadius = dp(10).toFloat()
         }
+        backgroundTintList = null
     }
 }
 
@@ -105,6 +106,8 @@ fun Context.toggle(label: String): SwitchCompat = SwitchCompat(this).apply {
     setTextColor(getColor(R.color.text))
     setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
     minHeight = dp(48)
+    thumbTintList = ColorStateList.valueOf(getColor(R.color.gold))
+    trackTintList = ColorStateList.valueOf(getColor(R.color.muted))
 }
 
 fun Context.actionButton(label: String, outlined: Boolean = false, danger: Boolean = false): MaterialButton {
@@ -121,6 +124,13 @@ fun Context.actionButton(label: String, outlined: Boolean = false, danger: Boole
     if (danger) {
         button.backgroundTintList = ColorStateList.valueOf(getColor(R.color.danger))
         button.setTextColor(Color.WHITE)
+    } else if (outlined) {
+        button.backgroundTintList = ColorStateList.valueOf(getColor(R.color.card))
+        button.strokeColor = ColorStateList.valueOf(getColor(R.color.gold))
+        button.setTextColor(getColor(R.color.text))
+    } else {
+        button.backgroundTintList = ColorStateList.valueOf(getColor(R.color.gold))
+        button.setTextColor(getColor(R.color.onGold))
     }
     return button
 }

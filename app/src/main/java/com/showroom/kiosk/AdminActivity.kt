@@ -14,6 +14,7 @@ import android.text.InputType
 import android.text.TextWatcher
 import android.util.Log
 import android.view.WindowManager
+import android.content.res.ColorStateList
 import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.LinearLayout
@@ -71,7 +72,11 @@ class AdminActivity : AppCompatActivity() {
         )
         appsSummary = mutedText()
         brightnessLabel = mutedText()
-        brightnessSeek = SeekBar(this).apply { max = 245 }
+        brightnessSeek = SeekBar(this).apply {
+            max = 245
+            progressTintList = ColorStateList.valueOf(getColor(R.color.gold))
+            thumbTintList = ColorStateList.valueOf(getColor(R.color.gold))
+        }
         autoLaunch = toggle(getString(R.string.auto_launch))
         hardening = toggle(getString(R.string.samsung_hardening))
         statusBar = toggle(getString(R.string.hide_status_bar))
@@ -243,6 +248,7 @@ class AdminActivity : AppCompatActivity() {
                 val box = CheckBox(this).apply {
                     text = app.label + "\n" + app.packageName
                     setTextColor(getColor(R.color.text))
+                    buttonTintList = ColorStateList.valueOf(getColor(R.color.gold))
                     isChecked = app.packageName in selected
                     setOnCheckedChangeListener { _, checked ->
                         if (checked) {
