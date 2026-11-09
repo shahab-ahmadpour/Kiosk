@@ -13,6 +13,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import android.view.MotionEvent
 import android.view.WindowManager
 import com.google.android.material.button.MaterialButton
 
@@ -28,7 +29,9 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var appList: LinearLayout
     private lateinit var versionView: TextView
     private var taps = 0
-    private var firstTap = 0L
+    private var lastTap = 0L
+    private var gateOpen = false
+    private val holdGate = Runnable { openStaffGate() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,10 +41,11 @@ class HomeActivity : AppCompatActivity() {
         policy = PolicyApplier(this)
         val (scroll, column) = screenScroll()
         titleView = heading(store.title(this)).apply {
-            setOnClickListener { onTitleTap() }
             setPadding(0, dp(12), 0, dp(4))
         }
         subtitleView = mutedText()
+        watchStaffGesture(titleView)
+        watchStaffGesture(subtitleView)
         bannerView = bodyText().apply {
             background = cardBackground()
             setPadding(dp(16), dp(16), dp(16), dp(16))
@@ -159,18 +163,51 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
-    private fun onTitleTap() {
-        val now = SystemClock.elapsedRealtime()
-        if (now - firstTap > Limits.TAP_WINDOW_MS) {
-            taps = 0
-            firstTap = now
+    private fun watchStaffGesture(view: View) {
+        view.isClickable = true
+        view.minimumHeight = dp(72)
+        view.setOnTouchListener { target, event ->
+            when (event.actionMasked) {
+                MotionEvent.ACTION_DOWN -> {
+                    target.parent?.requestDisallowInterceptTouchEvent(true)
+                    target.removeCallbacks(holdGate)
+                    target.postDelayed(holdGate, Limits.HOLD_MS)
+                    true
+                }
+                MotionEvent.ACTION_UP -> {
+                    target.removeCallbacks(holdGate)
+                    target.parent?.requestDisallowInterceptTouchEvent(false)
+                    onTitleTap()
+                    true
+                }
+                MotionEvent.ACTION_CANCEL -> {
+                    target.removeCallbacks(holdGate)
+                    target.parent?.requestDisallowInterceptTouchEvent(false)
+                    true
+                }
+                else -> false
+            }
         }
+    }
+
+    private fun onTitleTap() {
+        if (gateOpen) return
+        val now = SystemClock.elapsedRealtime()
+        if (now - lastTap > Limits.TAP_GAP_MS) taps = 0
+        lastTap = now
         taps += 1
         if (taps < Limits.TAP_COUNT) return
+        openStaffGate()
+    }
+
+    private fun openStaffGate() {
+        if (gateOpen || isFinishing) return
+        gateOpen = true
         taps = 0
         Dialogs.askPin(this, store) {
             startActivity(android.content.Intent(this, AdminActivity::class.java))
         }
+        titleView.postDelayed({ gateOpen = false }, 1_500)
     }
 
     private fun enterLockTask() {
