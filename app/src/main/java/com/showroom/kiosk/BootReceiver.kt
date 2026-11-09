@@ -15,6 +15,7 @@ class BootReceiver : BroadcastReceiver() {
         try {
             context.startActivity(
                 Intent(context, HomeActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK),
+                fullscreenOptions(),
             )
         } catch (error: Exception) {
             Log.w(TAG, "boot start", error)

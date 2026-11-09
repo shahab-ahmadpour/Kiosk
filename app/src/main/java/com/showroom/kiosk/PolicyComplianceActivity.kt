@@ -10,7 +10,10 @@ class PolicyComplianceActivity : Activity() {
         val store = KioskStore(this)
         ProvisioningExtras.apply(store, ProvisioningExtras.from(intent))
         PolicyApplier(this).apply(store)
-        startActivity(Intent(this, HomeActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+        startActivity(
+            Intent(this, HomeActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK),
+            fullscreenOptions(),
+        )
         setResult(RESULT_OK)
         finish()
     }

@@ -1,7 +1,11 @@
 package com.showroom.kiosk
 
+import android.app.ActivityOptions
+import android.app.WindowConfiguration
 import android.content.Context
 import android.content.res.ColorStateList
+import android.os.Build
+import android.os.Bundle
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.text.InputFilter
@@ -19,6 +23,15 @@ import androidx.appcompat.widget.SwitchCompat
 import com.google.android.material.button.MaterialButton
 
 fun Context.dp(value: Int): Int = (value * resources.displayMetrics.density).toInt()
+
+fun fullscreenOptions(): Bundle {
+    val options = ActivityOptions.makeBasic()
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+        @Suppress("DEPRECATION")
+        options.setLaunchWindowingMode(WindowConfiguration.WINDOWING_MODE_FULLSCREEN)
+    }
+    return options.toBundle()
+}
 
 fun Context.toast(message: CharSequence) {
     Toast.makeText(this, message, Toast.LENGTH_LONG).show()

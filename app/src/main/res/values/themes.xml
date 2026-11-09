@@ -22,6 +22,7 @@
         <item name="android:statusBarColor">@color/bg</item>
         <item name="android:navigationBarColor">@color/bg</item>
         <item name="android:windowBackground">@color/bg</item>
+        <item name="android:windowLayoutInDisplayCutoutMode">always</item>
         <item name="alertDialogTheme">@style/ThemeOverlay.Showroom.Dialog</item>
         <item name="materialAlertDialogTheme">@style/ThemeOverlay.Showroom.Dialog</item>
     </style>

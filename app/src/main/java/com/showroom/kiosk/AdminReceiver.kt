@@ -15,6 +15,7 @@ class AdminReceiver : DeviceAdminReceiver() {
         PolicyApplier(context).apply(store)
         context.startActivity(
             Intent(context, HomeActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK),
+            fullscreenOptions(),
         )
     }
 }

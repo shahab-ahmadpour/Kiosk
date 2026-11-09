@@ -87,7 +87,7 @@ object AppCatalog {
                 context.packageManager.getLaunchIntentForPackage(packageName) ?: return false
             }
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            context.startActivity(intent)
+            context.startActivity(intent, fullscreenOptions())
             true
         } catch (error: ActivityNotFoundException) {
             Log.w(TAG, "launch $packageName", error)

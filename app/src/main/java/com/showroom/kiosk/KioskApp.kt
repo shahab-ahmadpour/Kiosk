@@ -20,6 +20,7 @@ class KioskApp : Application() {
     @Volatile var syncGatePassed: Boolean = false
     @Volatile var installInProgress: Boolean = false
     @Volatile var lastSyncElapsed: Long = 0L
+    @Volatile var fullscreenRelaunchTried: Boolean = false
 
     private val relock = Runnable { forceEndMaintenance() }
 
@@ -54,6 +55,7 @@ class KioskApp : Application() {
         startActivity(
             Intent(this, HomeActivity::class.java)
                 .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP),
+            fullscreenOptions(),
         )
     }
 }

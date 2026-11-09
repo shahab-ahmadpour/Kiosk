@@ -56,7 +56,10 @@ class HomeActivity : AppCompatActivity() {
         setupButton = actionButton(getString(R.string.setup_button)).apply {
             setOnClickListener {
                 Dialogs.askPin(this@HomeActivity, store) {
-                    startActivity(android.content.Intent(this@HomeActivity, AdminActivity::class.java))
+                    startActivity(
+                        android.content.Intent(this@HomeActivity, AdminActivity::class.java),
+                        fullscreenOptions(),
+                    )
                 }
             }
         }
@@ -128,6 +131,19 @@ class HomeActivity : AppCompatActivity() {
             store.maintenanceMode = false
         }
         if (policy.isDeviceOwner()) policy.apply(store)
+        if (android.os.Build.VERSION.SDK_INT >= 24 && isInMultiWindowMode) {
+            val app = application as KioskApp
+            if (!app.fullscreenRelaunchTried) {
+                app.fullscreenRelaunchTried = true
+                startActivity(
+                    android.content.Intent(this, HomeActivity::class.java).addFlags(
+                        android.content.Intent.FLAG_ACTIVITY_NEW_TASK or android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK,
+                    ),
+                    fullscreenOptions(),
+                )
+                return
+            }
+        }
         render()
         enterLockTask()
         syncThenMaybeLaunch()
@@ -242,7 +258,7 @@ class HomeActivity : AppCompatActivity() {
         gateOpen = true
         taps = 0
         Dialogs.askPin(this, store) {
-            startActivity(android.content.Intent(this, AdminActivity::class.java))
+            startActivity(android.content.Intent(this, AdminActivity::class.java), fullscreenOptions())
         }
         subtitleView.postDelayed({ gateOpen = false }, 1_500)
     }

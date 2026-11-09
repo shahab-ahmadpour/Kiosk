@@ -97,6 +97,7 @@ class PolicyApplier(private val context: Context) {
         if (locked) {
             step("navigation-buttons") { dpm.setSecureSetting(admin, "navigation_mode", "0") }
             step("edge-panels") { dpm.setGlobalSetting(admin, "edge_enable", "0") }
+            step("freeform") { dpm.setGlobalSetting(admin, "enable_freeform_support", "0") }
         }
         store.lastPolicyWarning = warnings.joinToString("\n")
     }
@@ -129,6 +130,7 @@ class PolicyApplier(private val context: Context) {
             UserManager.DISALLOW_FUN,
             UserManager.DISALLOW_CONFIG_BLUETOOTH,
             UserManager.DISALLOW_SET_WALLPAPER,
+            DISALLOW_CREATE_WINDOWS,
         )
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             set += UserManager.DISALLOW_CONFIG_DATE_TIME
@@ -157,6 +159,7 @@ class PolicyApplier(private val context: Context) {
             UserManager.DISALLOW_CONFIG_BLUETOOTH,
             UserManager.DISALLOW_SET_WALLPAPER,
             UserManager.DISALLOW_DEBUGGING_FEATURES,
+            DISALLOW_CREATE_WINDOWS,
         )
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             list += UserManager.DISALLOW_CONFIG_DATE_TIME
@@ -204,18 +207,23 @@ class PolicyApplier(private val context: Context) {
         }
         val hidden = mutableListOf<String>()
         for (packageName in desired) {
+            var applied = false
             step("hide") {
-                if (dpm.setApplicationHidden(admin, packageName, true)) {
-                    hidden += packageName
-                }
+                // False means the package is already hidden. Keep it in the list,
+                // otherwise the next pass treats it as missing and unhides DeX.
+                dpm.setApplicationHidden(admin, packageName, true)
+                applied = true
             }
+            if (applied) hidden += packageName
         }
         store.hiddenPackages = hidden
     }
 
     private fun installed(packageName: String): Boolean {
         return try {
-            context.packageManager.getPackageInfo(packageName, 0)
+            @Suppress("DEPRECATION")
+            val flags = PackageManager.MATCH_UNINSTALLED_PACKAGES
+            context.packageManager.getPackageInfo(packageName, flags)
             true
         } catch (_: PackageManager.NameNotFoundException) {
             false
@@ -233,6 +241,8 @@ class PolicyApplier(private val context: Context) {
 
     companion object {
         private const val TAG = "ShowroomKiosk"
+
+        const val DISALLOW_CREATE_WINDOWS = "no_create_windows"
 
         val SAMSUNG_PACKAGES = listOf(
             "com.samsung.android.app.cocktailbarservice",
