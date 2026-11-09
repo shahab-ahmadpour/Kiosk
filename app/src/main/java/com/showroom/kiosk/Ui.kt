@@ -1,10 +1,8 @@
 package com.showroom.kiosk
 
 import android.app.ActivityOptions
-import android.app.WindowConfiguration
 import android.content.Context
 import android.content.res.ColorStateList
-import android.os.Build
 import android.os.Bundle
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
@@ -26,9 +24,14 @@ fun Context.dp(value: Int): Int = (value * resources.displayMetrics.density).toI
 
 fun fullscreenOptions(): Bundle {
     val options = ActivityOptions.makeBasic()
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-        @Suppress("DEPRECATION")
-        options.setLaunchWindowingMode(WindowConfiguration.WINDOWING_MODE_FULLSCREEN)
+    try {
+        // Public SDK hides this. 1 is fullscreen, so One UI does not open the app in a small window.
+        val method = ActivityOptions::class.java.getMethod(
+            "setLaunchWindowingMode",
+            java.lang.Integer.TYPE,
+        )
+        method.invoke(options, 1)
+    } catch (_: ReflectiveOperationException) {
     }
     return options.toBundle()
 }
