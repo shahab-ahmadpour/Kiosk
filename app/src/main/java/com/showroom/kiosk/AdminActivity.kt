@@ -36,7 +36,6 @@ class AdminActivity : AppCompatActivity() {
     private lateinit var store: KioskStore
     private lateinit var policy: PolicyApplier
     private lateinit var statusView: TextView
-    private lateinit var titleInput: EditText
     private lateinit var urlInput: EditText
     private lateinit var allowInput: EditText
     private lateinit var configInput: EditText
@@ -60,7 +59,6 @@ class AdminActivity : AppCompatActivity() {
         policy = PolicyApplier(this)
         val (scroll, column) = screenScroll()
         statusView = bodyText()
-        titleInput = field(getString(R.string.showroom_title_label), max = 40)
         urlInput = field(getString(R.string.chrome_url), InputType.TYPE_TEXT_VARIATION_URI)
         allowInput = field(getString(R.string.chrome_allowlist), InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_MULTI_LINE, 4000)
         allowInput.minLines = 4
@@ -91,7 +89,6 @@ class AdminActivity : AppCompatActivity() {
         column.full(appsSummary, 0)
         column.full(actionButton(getString(R.string.choose_apps), outlined = true) { chooseApps() })
         column.full(sectionLabel(getString(R.string.section_chrome)))
-        column.full(titleInput)
         column.full(urlInput)
         column.full(allowInput)
         column.full(mutedText(getString(R.string.chrome_allowlist_help)), 4)
@@ -141,7 +138,6 @@ class AdminActivity : AppCompatActivity() {
     private fun fill() {
         selected.clear()
         selected += store.allowedPackages
-        titleInput.setText(store.showroomTitle.ifBlank { store.title(this) })
         urlInput.setText(store.chromeStartUrl)
         allowInput.setText(store.chromeAllowlist.joinToString("\n"))
         configInput.setText(store.configUrl)
@@ -160,11 +156,6 @@ class AdminActivity : AppCompatActivity() {
     }
 
     private fun saveForm(): Boolean {
-        val title = titleInput.text.toString().trim()
-        if (title.isEmpty() || title.length > 40 || title.contains('\n')) {
-            toast(getString(R.string.invalid_title))
-            return false
-        }
         val startUrl = urlInput.text.toString().trim()
         if (startUrl.isNotEmpty() && !UrlRules.isHttpUrl(startUrl)) {
             toast(getString(R.string.invalid_url))
@@ -186,7 +177,6 @@ class AdminActivity : AppCompatActivity() {
             toast(getString(R.string.need_chrome))
             return false
         }
-        store.showroomTitle = title
         store.chromeStartUrl = startUrl
         store.chromeAllowlist = patterns
         store.configUrl = configUrl

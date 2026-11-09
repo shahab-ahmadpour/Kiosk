@@ -6,6 +6,7 @@ import android.os.SystemClock
 import android.util.Log
 import android.util.TypedValue
 import android.view.View
+import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -20,7 +21,6 @@ import com.google.android.material.button.MaterialButton
 class HomeActivity : AppCompatActivity() {
     private lateinit var store: KioskStore
     private lateinit var policy: PolicyApplier
-    private lateinit var titleView: TextView
     private lateinit var subtitleView: TextView
     private lateinit var bannerView: TextView
     private lateinit var hintView: TextView
@@ -40,11 +40,11 @@ class HomeActivity : AppCompatActivity() {
         store = KioskStore(this)
         policy = PolicyApplier(this)
         val (scroll, column) = screenScroll()
-        titleView = heading(store.title(this)).apply {
-            setPadding(0, dp(12), 0, dp(4))
+        scroll.setBackgroundColor(android.graphics.Color.TRANSPARENT)
+        subtitleView = mutedText().apply {
+            setTextColor(getColor(R.color.text))
+            setShadowLayer(12f, 0f, 2f, android.graphics.Color.BLACK)
         }
-        subtitleView = mutedText()
-        watchStaffGesture(titleView)
         watchStaffGesture(subtitleView)
         bannerView = bodyText().apply {
             background = cardBackground()
@@ -68,15 +68,25 @@ class HomeActivity : AppCompatActivity() {
         }
         appList = LinearLayout(this).apply { orientation = LinearLayout.VERTICAL }
         versionView = mutedText()
-        column.full(titleView, 0)
-        column.full(subtitleView, 4)
+        column.full(subtitleView, 28)
         column.full(bannerView, 16)
         column.full(hintView, 8)
         column.full(setupButton, 16)
         column.full(resumeButton, 8)
         column.full(appList, 8)
         column.full(versionView, 18)
-        setContentView(scroll)
+        val wallpaper = ImageView(this).apply {
+            setImageResource(R.drawable.home_background)
+            scaleType = ImageView.ScaleType.FIT_CENTER
+            setBackgroundColor(android.graphics.Color.BLACK)
+            importantForAccessibility = View.IMPORTANT_FOR_ACCESSIBILITY_NO
+        }
+        val root = FrameLayout(this).apply {
+            setBackgroundColor(android.graphics.Color.BLACK)
+            addView(wallpaper, FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT))
+            addView(scroll, FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT))
+        }
+        setContentView(root)
         ViewCompat.setOnApplyWindowInsetsListener(scroll) { view, insets ->
             val bars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             view.setPadding(bars.left, bars.top, bars.right, bars.bottom)
@@ -96,7 +106,6 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun render() {
-        titleView.text = store.title(this)
         val installed = store.allowedPackages.filter { AppCatalog.isInstalled(this, it) }
         val missing = store.allowedPackages.filter { it !in installed }
         subtitleView.text = when {
@@ -207,7 +216,7 @@ class HomeActivity : AppCompatActivity() {
         Dialogs.askPin(this, store) {
             startActivity(android.content.Intent(this, AdminActivity::class.java))
         }
-        titleView.postDelayed({ gateOpen = false }, 1_500)
+        subtitleView.postDelayed({ gateOpen = false }, 1_500)
     }
 
     private fun enterLockTask() {

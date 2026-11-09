@@ -3,14 +3,15 @@
     <string name="app_name">کیوسک شوروم</string>
     <string name="admin_description">این تبلت را به برنامه‌های شوروم محدود می‌کند.</string>
     <string name="default_title">شوروم</string>
+    <string name="organization_name">Tehran Auto Plaza</string>
     <string name="home_subtitle_many">یک برنامه را انتخاب کنید</string>
-    <string name="home_subtitle_one">برای باز کردن لمس کنید</string>
+    <string name="home_subtitle_one">Tap to open</string>
     <string name="home_subtitle_none">هنوز برنامه‌ای انتخاب نشده است</string>
     <string name="banner_not_owner">قفل سیستمی اندروید هنوز فعال نیست. هیچ حساب گوگل یا سامسونگی نسازید، APK نسخهٔ release را نصب کنید و این برنامه را مالک دستگاه کنید. تا آن لحظه مشتری می‌تواند از کیوسک خارج شود.</string>
     <string name="banner_not_locked">قفل خاموش است. رمز مسئول را بگذارید، کروم و حداکثر دو برنامهٔ دیگر را انتخاب کنید، بعد کیوسک را روشن کنید.</string>
     <string name="banner_maintenance">حالت تعمیر باز است. در زمان تعیین‌شده کیوسک دوباره قفل می‌شود. تبلت را پیش مشتری تنها نگذارید.</string>
     <string name="banner_missing">نصب نشده: %1$s</string>
-    <string name="setup_hint">بعد از روشن شدن قفل، هفت بار روی عنوان بزنید و رمز را وارد کنید.</string>
+    <string name="setup_hint">بعد از روشن شدن قفل، هفت بار روی Tap to open بزنید یا آن را نگه دارید و رمز را وارد کنید.</string>
     <string name="setup_button">تنظیم مسئول</string>
     <string name="resume_kiosk">قفل کردن دوباره</string>
     <string name="enter_pin">رمز مسئول</string>

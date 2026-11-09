@@ -33,7 +33,7 @@ class PolicyApplier(private val context: Context) {
             dpm.setLongSupportMessage(admin, context.getString(R.string.support_long))
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            step("organization") { dpm.setOrganizationName(admin, store.title(context)) }
+            step("organization") { dpm.setOrganizationName(admin, context.getString(R.string.organization_name)) }
         }
         step("backup") { dpm.setBackupServiceEnabled(admin, false) }
         step("keyguard") { dpm.setKeyguardDisabled(admin, true) }

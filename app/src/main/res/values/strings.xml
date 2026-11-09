@@ -3,6 +3,7 @@
     <string name="app_name">Showroom Kiosk</string>
     <string name="admin_description">Locks this tablet to the showroom apps.</string>
     <string name="default_title">Showroom</string>
+    <string name="organization_name">Tehran Auto Plaza</string>
     <string name="home_subtitle_many">Choose an app</string>
     <string name="home_subtitle_one">Tap to open</string>
     <string name="home_subtitle_none">No app has been selected yet</string>
@@ -10,7 +11,7 @@
     <string name="banner_not_locked">The lock is off. Set a PIN, choose Chrome and up to two other apps, then turn the kiosk on.</string>
     <string name="banner_maintenance">Maintenance is open. The tablet locks itself again on the deadline. Do not leave it with a visitor.</string>
     <string name="banner_missing">Not installed: %1$s</string>
-    <string name="setup_hint">After the lock is on, tap the title seven times and enter the PIN.</string>
+    <string name="setup_hint">After the lock is on, tap Tap to open seven times, or hold it, and enter the PIN.</string>
     <string name="setup_button">Staff setup</string>
     <string name="resume_kiosk">Lock the kiosk again</string>
     <string name="enter_pin">Staff PIN</string>
