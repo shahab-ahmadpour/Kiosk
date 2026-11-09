@@ -30,6 +30,7 @@
     <string name="new_pin">New PIN</string>
     <string name="confirm_pin">Repeat the PIN</string>
     <string name="save">Save</string>
+    <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
     <string name="admin_title">Staff controls</string>
     <string name="section_status">Status</string>

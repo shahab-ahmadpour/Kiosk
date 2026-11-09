@@ -30,7 +30,7 @@ object Dialogs {
         val dialog = MaterialAlertDialogBuilder(activity)
             .setTitle(R.string.enter_pin)
             .setView(activity.pad(input))
-            .setPositiveButton(R.string.save, null)
+            .setPositiveButton(R.string.ok, null)
             .setNegativeButton(R.string.cancel, null)
             .create()
         dialog.setOnShowListener {

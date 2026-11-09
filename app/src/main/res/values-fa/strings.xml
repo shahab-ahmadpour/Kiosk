@@ -30,6 +30,7 @@
     <string name="new_pin">رمز جدید</string>
     <string name="confirm_pin">تکرار رمز</string>
     <string name="save">ذخیره</string>
+    <string name="ok">تأیید</string>
     <string name="cancel">انصراف</string>
     <string name="admin_title">کنترل مسئول</string>
     <string name="section_status">وضعیت</string>
